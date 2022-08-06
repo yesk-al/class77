@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="72333778-86ff-432b-a770-11ceaa0e8d04" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="mule03_projectFlow" doc:id="3a42e53b-f993-4849-9793-54275cb70547" >
+		<http:listener doc:name="Listener" doc:id="c385c702-9134-4ad0-9d20-a8e476dea91a" config-ref="HTTP_Listener_config" path="/education"/>
+		<set-variable value='#["1247"]' doc:name="Set Variable" doc:id="ebb6767a-9381-4e3c-ad35-1a557c375791" variableName="studentID"/>
+		<set-payload value="#[vars.studentID]" doc:name="Set Payload" doc:id="d08078c4-e588-47f6-880b-84cc7c37bcc5" />
+	</flow>
+</mule>
