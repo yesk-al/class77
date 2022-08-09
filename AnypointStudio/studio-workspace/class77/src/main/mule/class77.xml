@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:file="http://www.mulesoft.org/schema/mule/file"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="27c3cbe9-cb18-4eab-9b00-5225ff6c1aa5" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<file:config name="File_Config" doc:name="File Config" doc:id="85504156-c606-4714-97e1-48737b315623" >
+		<file:connection workingDir="/Users/ESKNDIR/Desktop/CSV" />
+	</file:config>
+	<flow name="class77Flow" doc:id="844070fd-6aa3-49be-904b-a23466b33fba" >
+		<http:listener doc:name="Listener" doc:id="2e6dd549-c33a-4d91-a8b1-68428e4b51ce" config-ref="HTTP_Listener_config" path="/csv"/>
+		<file:read doc:name="Read" doc:id="c0d5ac13-b7ca-4551-a5c5-1ec84ae6c5a3" config-ref="File_Config" path="/Users/ESKNDIR/Desktop/CSV/UserData (5).csv"/>
+		<ee:transform doc:name="Transform Message" doc:id="4d4a5aef-c926-4966-bdb0-38f8a51d3141" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>
